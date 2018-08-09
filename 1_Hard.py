@@ -7,32 +7,32 @@
 
 
 good = '- у вас хорошее состояние!'
-mid = '- следует заняться собой!'
+middle = '- следует заняться собой!'
 bad = '- следует обратиться к врачу!'
 
 def diagnoz(i):
-    print(name, sur, 'возраст', age, 'вес', wgt, i)
+    print(name, surname, 'возраст', age, 'вес', weight, i)
 
 print('Добро пожаловать к врачу! Сейчас мы заполним анкету: ')
 name = input('Ваше имя? ')
-sur = input('Ваша фамилия? ')
+surname = input('Ваша фамилия? ')
 age = int(input('Сколько Вам лет? '))
-wgt = int(input('Каой у Вас вес? '))  # weight
+weight = int(input('Какой у Вас вес? '))
 
 
-if age < 30 and (50 <= wgt <= 120):
+if age < 30 and (50 <= weight <= 120):
     diagnoz(good)
-elif age < 30 and (wgt < 50 or wgt > 120):
-    diagnoz(mid)
+elif age < 30 and (wgt < 50 or weight > 120):
+    diagnoz(middle)
 
-elif age < 40 and (50 <= wgt <= 120):
+elif age < 40 and (50 <= weight <= 120):
     diagnoz(good)
-elif age < 40 and (wgt < 50 or wgt > 120):
-    diagnoz(mid)
+elif age < 40 and (weight < 50 or weight > 120):
+    diagnoz(middle)
 
-elif age >= 40 and (50 <= wgt <= 120):
+elif age >= 40 and (50 <= weight <= 120):
     diagnoz(good)
-elif age >= 40 and (wgt < 50 or wgt > 120):
+elif age >= 40 and (weight < 50 or weight > 120):
     diagnoz(bad)
 
 
