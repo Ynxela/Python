@@ -39,8 +39,8 @@ attack(player, enemy)
 
 
 def attack_value(attack_arg, defend_arg):  # Вычисляет урон по отношению к броне
-    attack_arg['attack'] /= defend_arg['defend']
-    return attack_arg['attack']
+    a = attack_arg['attack'] / defend_arg['defend']
+    return a
 
 
 def attack(attack_arg, defend_arg):  # Наносит урон!
