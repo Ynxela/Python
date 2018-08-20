@@ -45,7 +45,11 @@ def process_user_choice(choice, person):
         print(check_account(person))
     elif choice == 2:
         try:
-            count = float(input('Сумма к снятию:'))
+            count = 0
+            while count <= 0:
+                count = float(input('Сумма к снятию:'))
+                if count <= 0:
+                    print('Сумма не может быть отрицательной или равной нулю!')
             print(withdraw_money(person, count))
         except ValueError:
             print('Вы должны ввести цифры, а не текст!')

@@ -13,7 +13,7 @@
 
 import re
 
-pattern_name = '^[A-ZА-Я]{1}[a-zа-я]+$'
+pattern_name = '^[A-ZА-Я][a-zа-я]+$'
 pattern_surname = pattern_name
 pattern_email = '^[a-z_0-9]+@[a-z0-9]+\.(ru|org|com)$'
 
