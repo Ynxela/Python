@@ -41,11 +41,11 @@ def file_copy():
         newfile = file_name + '.copy'
         shutil.copy(file_name, newfile)
         if os.path.exists(newfile):
-            print('Файл \.{}\. был успешно создан.'.format(newfile))
+            print('Файл \'{}\' был успешно создан.'.format(newfile))
         else:
             print('Возникли проблемы копирования.')
     except FileExistsError:
-        print('файла {} не существует.'.format(file_name))
+        print('файла \'{}\' не существует.'.format(file_name))
 
 
 def file_remove():
@@ -56,11 +56,11 @@ def file_remove():
         ans = input('Вы действительно хотите удалить {} Y/N?'.format(file_name))
         if ans == 'Y':
             os.remove(file_name)
-            print('Файл {} удален.'.format(file_name))
+            print('Файл \'{}\' удален.'.format(file_name))
         else:
             return
     except FileExistsError:
-        print('Файл {} не существует.'.format(file_name))
+        print('Файл \'{}\' не существует.'.format(file_name))
 
 
 def make_dir():
@@ -70,9 +70,9 @@ def make_dir():
     dir_path = os.path.join(os.getcwd(), dir_name)
     try:
         os.mkdir(dir_path)
-        print('Директория {} создана'.format(dir_name))
+        print('Директория \'{}\' создана'.format(dir_name))
     except FileExistsError:
-        print('Директория {} уже существует'.format(dir_name))
+        print('Директория \'{}\' уже существует'.format(dir_name))
 
 
 def choose_dir():

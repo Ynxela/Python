@@ -5,6 +5,7 @@
 
 
 import os
+import shutil
 
 for i in range(1, 10):
     os.mkdir('dir_{}'.format(i))
@@ -22,4 +23,8 @@ for i in os.listdir('.'):
 # Задача-3:
 # Напишите скрипт, создающий копию файла, из которого запущен данный скрипт.
 
-print(__file__.split('/')[-1:][0])
+file_name = __file__.split('/')[-1:][0]
+
+newfile = file_name + '.copy'
+shutil.copy(file_name, newfile)
+print('Файл {} был успешно создан.'.format(newfile))
