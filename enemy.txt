@@ -1,0 +1,4 @@
+name - 200
+health - 200
+attack - 20
+defend - 2.0
