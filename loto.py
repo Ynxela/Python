@@ -47,18 +47,19 @@
 
 import random
 
+
 class Card:
-    def __init__(self, name, computer = 0):
+    def __init__(self, name, computer=0):
         self.name = name
         self.computer = computer
         self.creating_card()
 
     def creating_card(self):
-        self.main_card = [[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],  # Массив из пустых строк:
-                     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']]
-
-        card_15 = list(random.sample(range(1, 91), 15))  # 15 уникальных элементов
+        self.main_card = [[' ' for i in range(0, 9)],  # Массив из пустых строк
+                          [' ' for i in range(0, 9)],
+                          [' ' for i in range(0, 9)]]
+        total_numbers = 15  # Количество чисел в массиве main_card
+        card_15 = list(random.sample(range(1, 91), total_numbers))  # 15 уникальных элементов
         supercard_15 = sorted(card_15[0:5]) + sorted(card_15[5:10]) + sorted(card_15[10:16])  # Они же, отсортированные
 
         k = 0
@@ -70,7 +71,6 @@ class Card:
 
         return self.main_card
 
-
     def show_card(self):
 
         if self.computer == 0:
@@ -78,9 +78,9 @@ class Card:
         else:
             self.nm = 'Компьютер'
 
-        st2 = 17 - len(self.name)//2
+        st2 = 17 - len(self.name) // 2
         st1 = st2
-        if len(self.name)%2 != 0:
+        if len(self.name) % 2 != 0:
             st1 = st2 - 1
 
         st4 = 17 - len(self.nm) // 2
@@ -113,11 +113,51 @@ class Barrel:
 
 
 class MainGame:
-    def __init__(self, player = str, opponent = str):
+    def __init__(self, player=str, opponent=str):
         self.player = player
         self.opponent = opponent
         self.run(player, opponent)
 
+    def check_win(self, z):  # проверяет на вхождение числа в массив, если его нет, то определяет победителя
+        x = 0
+        for i in range(len(z.main_card)):
+            for j in range(len(z.main_card[i])):
+                if type(z.main_card[i][j]) is int:
+                    x += int((z.main_card[i][j]))
+        if x == 0:
+            print('Игрок {} выиграл!'.format(z.name))
+            return False
+
+    def check(self, x, y):  # проверяет, является игрок человеком или компьютером, дает возможность выбора, если человек
+        if x.computer == 0:
+            result = 'X'
+            while result != 'Y' and result != 'N':
+                result = input('Зачеркнуть цифру? (Y/N)')
+                if result != 'Y' and result != 'N':
+                    print('Не верное значение. Введите Y или N!')
+
+            flag = 0
+            if result == 'Y':
+                for line in range(len(x.main_card)):
+                    if y.number in x.main_card[line]:
+                        id = int(x.main_card[line].index(y.number))
+                        x.main_card[line][id] = '_'
+                        flag = 1
+                if flag != 1:
+                    print('Игрок {} проиграл!'.format(x.name))
+                    return False
+
+            elif result == 'N':
+                for line in range(len(x.main_card)):
+                    if y.number in x.main_card[line]:
+                        print('Игрок {} проиграл!'.format(x.name))
+                        return False
+
+        else:
+            for line in range(len(x.main_card)):
+                if y.number in x.main_card[line]:
+                    id = int(x.main_card[line].index(y.number))
+                    x.main_card[line][id] = '_'
 
     def run(self, player, opponent):
 
@@ -133,94 +173,24 @@ class MainGame:
         self.op_name = input('Введите имя второго игрока: ')
         self.op_is_comp = int(input('{} - человек или компьютер? 0 - человек, 1 - компьютер: '.format(self.op_name)))
 
-        player = Card(self.pl_name, computer = self.pl_is_comp)
-        opponent = Card(self.op_name, computer = self.op_is_comp)
+        player = Card(self.pl_name, computer=self.pl_is_comp)
+        opponent = Card(self.op_name, computer=self.op_is_comp)
 
         print('\nНачинаем игру! \n\n')
 
         while True:
 
             bochka.step_minus()  # На каждом ходу достает бочку
-            print('Новый бочонок: {} (осталось {}) \n'.format(bochka.number, len(bochka.barrel_list)))
+            print('\n\n\nНовый бочонок: {} (осталось {}) \n'.format(bochka.number, len(bochka.barrel_list)))
+
             player.show_card()
             opponent.show_card()
 
-
-# проверяет, является ли игрок 1 человеком, и тогда работает выбор. Если нет, то играет автоматом..
-            if player.computer == 0:
-                result = input('Зачеркнуть цифру? (Y/N)')
-                flag = 0
-                if result =='Y':
-                    for line in range(len(player.main_card)):
-                        if bochka.number in player.main_card[line]:
-                            id = int(player.main_card[line].index(bochka.number))
-                            player.main_card[line][id] = '_'
-                            flag = 1
-                    if flag != 1:
-                        print('Игрок {} проиграл!'.format(player.name))
-                        return False
-
-                elif result =='N':
-                    for line in range(len(player.main_card)):
-                        if bochka.number in player.main_card[line]:
-                            print('Игрок {} проиграл!'.format(player.name))
-                            return False
-
-            else:
-                for line in range(len(player.main_card)):
-                    if bochka.number in player.main_card[line]:
-                        id = int(player.main_card[line].index(bochka.number))
-                        player.main_card[line][id] = '_'
-
-# проверяет, является ли игрок 2 человеком, и тогда работает выбор. Если нет, то играет автоматом..
-            if opponent.computer == 0:
-                result = input('Зачеркнуть цифру? (Y/N)')
-                flag = 0
-                if result =='Y':
-                    for line in range(len(opponent.main_card)):
-                        if bochka.number in opponent.main_card[line]:
-                            id = int(opponent.main_card[line].index(bochka.number))
-                            opponent.main_card[line][id] = '_'
-                            flag = 1
-                    if flag != 1:
-                        print('Игрок {} проиграл!'.format(opponent.name))
-                        return False
-
-                elif result =='N':
-                    for line in range(len(opponent.main_card)):
-                        if bochka.number in opponent.main_card[line]:
-                            print('Игрок {} проиграл!'.format(opponent.name))
-                            return False
-
-            else:
-                for line in range(len(opponent.main_card)):
-                    if bochka.number in opponent.main_card[line]:
-                        id = int(opponent.main_card[line].index(bochka.number))
-                        opponent.main_card[line][id] = '_'
-
-
-            #  Проверка на то, что есть хотя бы один числовой элемент:
-            x = 0
-            y = 0
-            for i in range(len(player.main_card)):
-                for j in range(len(player.main_card[i])):
-                    if type(player.main_card[i][j]) is int:
-                        x += int((player.main_card[i][j]))
-            if x == 0:
-                print('Игрок {} выиграл!'.format(player.name))
+            if self.check(player, bochka) is False or self.check(opponent, bochka) is False or self.check_win(
+                    player) is False or self.check_win(opponent) is False:
                 return False
 
-            for i in range(len(opponent.main_card)):
-                for j in range(len(opponent.main_card[i])):
-                    if type(opponent.main_card[i][j]) is int:
-                        y += int((opponent.main_card[i][j]))
-            if y == 0:
-                print('Игрок {} выиграл!'.format(opponent.name))
-                return False
-
-
-
-
+            print('')
 
 
 game = MainGame()
