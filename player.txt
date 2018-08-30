@@ -1,0 +1,4 @@
+name - Саша
+health - 1000
+attack - 100
+defend - 1.0
