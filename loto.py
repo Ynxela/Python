@@ -146,7 +146,7 @@ class MainGame:
             opponent.show_card()
 
 
-# проверяет, является ли игрок 1 человеком, и тогда работает выбор. Если нет, то играет автоматом.
+# проверяет, является ли игрок 1 человеком, и тогда работает выбор. Если нет, то играет автоматом..
             if player.computer == 0:
                 result = input('Зачеркнуть цифру? (Y/N)')
                 flag = 0
@@ -172,7 +172,7 @@ class MainGame:
                         id = int(player.main_card[line].index(bochka.number))
                         player.main_card[line][id] = '_'
 
-# проверяет, является ли игрок 2 человеком, и тогда работает выбор. Если нет, то играет автоматом.
+# проверяет, является ли игрок 2 человеком, и тогда работает выбор. Если нет, то играет автоматом..
             if opponent.computer == 0:
                 result = input('Зачеркнуть цифру? (Y/N)')
                 flag = 0
@@ -205,7 +205,7 @@ class MainGame:
             for i in range(len(player.main_card)):
                 for j in range(len(player.main_card[i])):
                     if type(player.main_card[i][j]) is int:
-                        x = 0 + int((player.main_card[i][j]))
+                        x += int((player.main_card[i][j]))
             if x == 0:
                 print('Игрок {} выиграл!'.format(player.name))
                 return False
@@ -213,7 +213,7 @@ class MainGame:
             for i in range(len(opponent.main_card)):
                 for j in range(len(opponent.main_card[i])):
                     if type(opponent.main_card[i][j]) is int:
-                        y = 0 + int((opponent.main_card[i][j]))
+                        y += int((opponent.main_card[i][j]))
             if y == 0:
                 print('Игрок {} выиграл!'.format(opponent.name))
                 return False
